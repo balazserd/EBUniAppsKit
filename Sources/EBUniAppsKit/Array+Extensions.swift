@@ -41,4 +41,33 @@ public extension Array {
             return returnArray
         }
     }
+    
+    /// Concurrently performs an operation for each element of an array.
+    ///
+    /// - Parameter maxConcurrencyCount: The number of maximum possible concurrent processing the `ThrowingTaskGroup` should handle.
+    /// - Parameter block: The async operation to perform for each element in the array.
+    ///
+    /// The underlying implementation uses a ``Swift.ThrowingTaskGroup``.
+    func forEachAsync(maxConcurrencyCount: Int = .max,
+                      _ block: @escaping (Self.Element) async throws -> Void)
+    async throws {
+        try await withThrowingTaskGroup(of: Void.self) { group in
+            for index in 0..<Swift.min(maxConcurrencyCount, self.count) {
+                group.addTask {
+                    try await block(self[index])
+                }
+            }
+            
+            var nextIndex = maxConcurrencyCount
+            while let nextElement = try await group.next() {
+                if nextIndex < self.count {
+                    group.addTask { [nextIndex] in
+                        try await block(self[nextIndex])
+                    }
+                }
+                
+                nextIndex += 1
+            }
+        }
+    }
 }
