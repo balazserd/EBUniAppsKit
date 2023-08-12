@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-extension View {
+public extension View {
     /// Modifies the view with a symmetric scale effect where `size` is the scale for both height and width.
     func scaleEffect(of size: CGFloat) -> some View {
         self.scaleEffect(CGSize(width: size, height: size))
