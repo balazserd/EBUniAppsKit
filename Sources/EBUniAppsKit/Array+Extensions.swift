@@ -74,13 +74,14 @@ public extension Array {
     /// Concurrently processes the elements of an array, then performs an operation with the results serially, preserving the original array's order.
     ///
     /// - Parameter maxConcurrencyCount: The number of maximum possible concurrent processing the `ThrowingTaskGroup` should handle.
-    /// - Parameter mapBlock: The async operation to perform for each element in the array.
+    /// - Parameter mapBlock: The async operation to map each element in the array.
+    /// - Parameter serialPerformBlock: The async operation to perform on each mapped element, in the order of the original array.
     ///
     /// The underlying implementation uses a ``Swift.ThrowingTaskGroup``.
     ///
     /// This function is useful when the last part of an expensive operation must be performed serially, but inputs for the serial part can be obtained concurrently.
     ///
-    /// The process will maintain an input result buffer, always waiting for the next-in-order input to be received but starting new processes if later input result arrive earlier - up until the concurrency limit.
+    /// The process will maintain an input result buffer, always waiting for the next-in-order input to be received but starting new mapping blocks if later input results arrive earlier - up until the concurrency limit.
     ///
     /// The following errors can be thrown:
     /// | Code | Description                      |
