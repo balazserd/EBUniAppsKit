@@ -16,6 +16,10 @@ public extension AVPlayerViewController {
     struct Representable: UIViewControllerRepresentable {
         public let player: AVPlayer
         
+        public init(player: AVPlayer) {
+            self.player = player
+        }
+        
         public func makeUIViewController(context: Context) -> AVPlayerViewController {
             let controller = AVPlayerViewController()
             controller.player = player
