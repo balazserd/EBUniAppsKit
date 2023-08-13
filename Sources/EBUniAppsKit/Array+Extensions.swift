@@ -11,7 +11,7 @@ public extension Array {
     /// Concurrently processes the elements of an array.
     ///
     /// - Parameter maxConcurrencyCount: The number of maximum possible concurrent processing the `ThrowingTaskGroup` should handle.
-    /// - Parameter processBlock: The async operation to perform on each element in the array.
+    /// - Parameter mapBlock: The async operation to perform on each element in the array.
     ///
     /// The underlying implementation uses a ``Swift.ThrowingTaskGroup``.
     func mapAsync<T>(maxConcurrencyCount: Int = .max,
@@ -116,7 +116,7 @@ public extension Array {
                 } while buffer.first(where: { $0.0 == nextResultIndex }) == nil
                 
                 guard let nextResultBufferIndex = buffer.firstIndex(where: { $0.0 == nextResultIndex }) else {
-                    throw NSError(domain: "EBUniAppsKit", code: -1)
+                    throw NSError(domain: "EBUniAppsKit", code: -1, userInfo: ["Description": "The next result buffer index is not found."])
                 }
                 
                 try await serialPerformBlock(buffer[nextResultBufferIndex].1)
