@@ -13,4 +13,14 @@ public extension View {
     func scaleEffect(of size: CGFloat) -> some View {
         self.scaleEffect(CGSize(width: size, height: size))
     }
+    
+    /// Conditionally applies a tag to a view.
+    @ViewBuilder
+    func conditionalTag<V: Hashable>(_ condition: Bool, tag: V) -> some View {
+        if condition {
+            self.tag(tag)
+        } else {
+            self
+        }
+    }
 }
