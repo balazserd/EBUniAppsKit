@@ -89,9 +89,9 @@ public extension Array {
     /// | -1   | The buffer element is not found. |
     func mapConcurrentlyThenPerformSeriallyAsync<M>(maxConcurrencyCount: Int = .max,
                                                     mapPriority: TaskPriority = .medium,
-                                                    mapBlock: @escaping (Self.Element) async throws -> M,
-                                                    serialPerformBlock: @escaping (M) async throws -> Void)
-    async throws {
+                                                    mapBlock: @escaping @Sendable (Self.Element) async throws -> M,
+                                                    serialPerformBlock: @escaping @Sendable (M) async throws -> Void)
+    async throws where M: Sendable, Self.Element: Sendable {
         try await withThrowingTaskGroup(of: (Int, M).self) { group in
             for index in 0..<Swift.min(maxConcurrencyCount, self.count) {
                 group.addTask(priority: mapPriority) {

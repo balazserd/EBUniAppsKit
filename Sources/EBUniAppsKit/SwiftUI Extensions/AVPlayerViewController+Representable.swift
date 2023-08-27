@@ -30,7 +30,7 @@ public extension AVPlayerViewController {
         }
         
         public func updateUIViewController(_ uiViewController: AVPlayerViewController,
-                                    context: Context) {
+                                           context: Context) {
             // no-op
         }
     }
