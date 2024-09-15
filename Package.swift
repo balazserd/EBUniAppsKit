@@ -24,14 +24,14 @@ let package = Package(
         .target(
             name: "EBUniAppsKit",
             dependencies: [
-                "EBUniAppsKitMacros"
+                "EBUniAppsKitMacros",
             ]),
         .testTarget(
             name: "EBUniAppsKitTests",
             dependencies: ["EBUniAppsKit"]),
 
         
-        // MARK: - SwiftUI Macros
+        // MARK: - EBUniAppsKitMacros
         .macro(
             name: "EBUniAppsKitMacros",
             dependencies: [

@@ -1,5 +1,6 @@
 import SwiftSyntax
 import SwiftSyntaxBuilder
+import SwiftDiagnostics
 import SwiftSyntaxMacros
 
 /// Implementation of the `stringify` macro, which takes an expression
@@ -49,8 +50,12 @@ public struct DeviceDependentMacro: MemberMacro {
         ].compactMap { DeclSyntax($0) }
     }
     
-    public enum Error: String, Swift.Error {
+    public enum Error: String, Swift.Error, DiagnosticMessage {
         case notAStruct = "The macro can only be attached to structs!"
         case missingViewConformance = "The type to which the macro is attached does not conform to View!"
+        
+        public var diagnosticID: SwiftDiagnostics.MessageID { .init(domain: "DeviceDependentMacro", id: self.rawValue) }
+        public var severity: SwiftDiagnostics.DiagnosticSeverity { .error }
+        public var message: String { self.rawValue }
     }
 }

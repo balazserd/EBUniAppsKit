@@ -3,7 +3,7 @@ import EBUniAppsKit
 protocol View { }
 
 @DeviceDependent
-struct TestStruct: View {
+struct TestStruct {
     
 }
 
