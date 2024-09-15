@@ -9,6 +9,7 @@ import Foundation
 import AVKit
 import SwiftUI
 
+#if os(iOS)
 public extension AVPlayerViewController {
     /// A SwiftUI wrapper for `AVKit.AVPlayerViewController`.
     ///
@@ -35,3 +36,4 @@ public extension AVPlayerViewController {
         }
     }
 }
+#endif

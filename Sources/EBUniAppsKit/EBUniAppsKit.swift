@@ -4,3 +4,6 @@ public struct EBUniAppsKit {
     public init() {
     }
 }
+
+@attached(member, names: arbitrary)
+public macro DeviceDependent() = #externalMacro(module: "EBUniAppsKitMacros", type: "DeviceDependentMacro")
