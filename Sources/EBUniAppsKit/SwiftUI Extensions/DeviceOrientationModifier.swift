@@ -18,7 +18,7 @@ public struct DeviceOrientationModifier: ViewModifier {
         NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
     }
     
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         content
             .onReceive(publisher) { _ in
                 orientation = UIDevice.current.orientation
