@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 import UIKit
 
-struct DeviceOrientationModifier: ViewModifier {
+public struct DeviceOrientationModifier: ViewModifier {
     @Binding var orientation: UIDeviceOrientation
     
     @MainActor
@@ -26,7 +26,7 @@ struct DeviceOrientationModifier: ViewModifier {
     }
 }
 
-extension View {
+public extension View {
     func bindOrientation(_ binding: Binding<UIDeviceOrientation>) -> some View {
         self.modifier(DeviceOrientationModifier(orientation: binding))
     }
